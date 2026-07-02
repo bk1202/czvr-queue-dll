@@ -24,8 +24,8 @@ jobs:
             Write-Error "sdk/EuroScopePlugIn.h is missing - commit it before building."
             exit 1
           }
-          if (!(Test-Path "sdk/EuroScope.lib")) {
-            Write-Error "sdk/EuroScope.lib is missing - commit it before building."
+          if (!(Test-Path "sdk/EuroScopePlugInDll.lib")) {
+            Write-Error "sdk/EuroScopePlugInDll.lib is missing - commit it before building."
             exit 1
           }
 
