@@ -14,7 +14,7 @@
   (progress to DEPA, get pushed back to PUSH, disconnect, etc).
 
 
-## Setting it up in EuroScope 
+## Setting it up in Euroscope 
 
 1. Settings menu -> Plug-ins -> Load
 2. Select `CZVR_ReqQueue.dll`
