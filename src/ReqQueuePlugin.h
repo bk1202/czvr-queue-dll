@@ -11,15 +11,22 @@
 #define MY_PLUGIN_COPYRIGHT "Internal CZVR tool - not for redistribution outside VATCAN"
 
 // Tag item + tag function codes.
-// These IDs only need to be unique WITHIN this plugin.
-const int TAG_ITEM_QUEUE_STATUS = 1;
-const int TAG_FUNC_QUEUE_MENU   = 1;
+// IMPORTANT: these share the SAME numbering space as EuroScope's own native
+// TAG_ITEM_TYPE_* / TAG_ITEM_FUNCTION_* constants (checked directly against
+// the SDK header - no separate namespace for plugin-registered codes).
+// As of this SDK version, native item type codes go up to 96 and native
+// function codes go up to 46. Picked well above both with margin for future
+// EuroScope versions adding more native codes.
+const int TAG_ITEM_QUEUE_STATUS = 9001;
+const int TAG_FUNC_QUEUE_MENU   = 9002;
 
-// Function IDs used inside the popup reorder menu (passed back via OnFunctionCall)
-const int FUNC_QUEUE_MOVE_TOP  = 101;
-const int FUNC_QUEUE_MOVE_UP   = 102;
-const int FUNC_QUEUE_MOVE_DOWN = 103;
-const int FUNC_QUEUE_REMOVE    = 104;
+// Function IDs used inside the popup reorder menu (passed back via OnFunctionCall).
+// Already safe vs. native codes (max 46) but kept in the same reserved range
+// as the two IDs above for consistency.
+const int FUNC_QUEUE_MOVE_TOP  = 9101;
+const int FUNC_QUEUE_MOVE_UP   = 9102;
+const int FUNC_QUEUE_MOVE_DOWN = 9103;
+const int FUNC_QUEUE_REMOVE    = 9104;
 
 // The ground state string EuroScope uses for "taxiing out".
 // Confirmed from EuroScopePlugIn.h: GetGroundState() returns "PUSH", "TAXI", "DEPA", or "".
