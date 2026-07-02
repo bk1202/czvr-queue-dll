@@ -1,5 +1,6 @@
 #pragma once
 
+#include <windows.h>
 #include "EuroScopePlugIn.h"
 #include <string>
 #include <vector>
