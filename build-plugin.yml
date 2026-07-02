@@ -1,0 +1,47 @@
+name: Build EuroScope Plugin
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    # Pinned explicitly rather than windows-latest: that label moved to
+    # Visual Studio 2026 between June 8-15, 2026, which changes the CMake
+    # generator string and drops the bundled Windows 10 SDK. Pin here until
+    # the CZVR-ReqQueue CMake config has been verified against VS2026.
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify SDK files are present
+        shell: pwsh
+        run: |
+          if (!(Test-Path "sdk/EuroScopePlugIn.h")) {
+            Write-Error "sdk/EuroScopePlugIn.h is missing - commit it before building."
+            exit 1
+          }
+          if (!(Test-Path "sdk/EuroScope.lib")) {
+            Write-Error "sdk/EuroScope.lib is missing - commit it before building."
+            exit 1
+          }
+
+      - name: Configure (CMake, 32-bit / Win32)
+        shell: pwsh
+        run: >
+          cmake -B build -G "Visual Studio 17 2022" -A Win32
+          -DEUROSCOPE_SDK_DIR="${{ github.workspace }}\sdk"
+
+      - name: Build (Release)
+        shell: pwsh
+        run: cmake --build build --config Release
+
+      - name: Upload DLL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CZVR_ReqQueue-dll
+          path: build/Release/CZVR_ReqQueue.dll
+          if-no-files-found: error
