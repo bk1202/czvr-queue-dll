@@ -1,4 +1,4 @@
-# CZVR Request Queue - EuroScope Plugin (v0.1 scaffold)
+# CZVR Request Queue - Euroscope Plugin (v0.1 scaffold)
 
 ## What this does right now
 
